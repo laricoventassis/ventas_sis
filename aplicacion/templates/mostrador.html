@@ -1,0 +1,30 @@
+{% extends 'header_body.html' %}
+
+{% block pagecontent %}
+<h3>Stock de Mostrador</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Producto</th>
+      <th scope="col">-</th>
+      <th scope="col">Precio Día</th>
+      <th scope="col">Precio Noche</th>
+      <th scope="col">Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for producto in productos%}
+      <tr>
+        <th scope="row">{{producto.id}}</th>
+        <td>{{producto.cProducto}}</td>
+        <td>{{producto.cAgrupacion}}({{producto.nConversion}})</td>
+        <td>s/ {{producto.nPrecioDia}}</td>
+        <td>s/ {{producto.nPrecioNoche}}</td>
+        <td>{{producto.nStock}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock pagecontent %}

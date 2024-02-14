@@ -1,0 +1,59 @@
+{% extends 'header_body.html' %}
+
+{% block pagecontent %}
+<div class="card card-cascade narrower z-depth-1">
+
+  <!-- Card image -->
+  <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+
+    <div>
+      <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2"><i class="fas fa-th-large mt-0"></i></button>
+      <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2"><i class="fas fa-columns mt-0"></i></button>
+    </div>
+
+    <a href="" class="white-text mx-3">Stock de Almacén</a>
+
+    <div>
+      <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2"><i class="fas fa-pencil-alt mt-0"></i></button>
+      <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2"><i class="fas fa-eraser mt-0"></i></button>
+      <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2"><i class="fas fa-info-circle mt-0"></i></button>
+    </div>
+
+  </div>
+  <!-- /Card image -->
+
+  <div class="px-4">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" class=".d-sm-none .d-md-block">ID</th>
+            <th scope="col">Producto</th>
+            <th scope="col">-</th>
+            <th scope="col">Precio Día</th>
+            <th scope="col">Precio Noche</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          {% for stock in stocks%}
+            <tr>
+              <th scope="row" class=".d-sm-none .d-md-block">{{stock.producto.id}}</th>
+              <td>{{stock.producto.cProducto}}</td>
+              <td>{{stock.producto.cAgrupacion}} ({{stock.producto.nConversion}})</td>
+              <td>{{stock.producto.nPrecioDia}}</td>
+              <td>{{stock.producto.nPrecioNoche}}</td>
+              <td>{{stock.cCantidad}}</td>
+              <td>{{stock.nCantidad}} Und</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{% endblock pagecontent %}
