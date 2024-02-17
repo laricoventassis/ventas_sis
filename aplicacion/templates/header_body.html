@@ -14,9 +14,12 @@
   <link rel="stylesheet" href="{% static 'css/mdb_4.min.css' %}">
   <!-- Your custom styles (optional) -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <script>
+    var base_url = 'http://{{ request.get_host }}';
+  </script>
 </head>
 <body class="fixed-sn white-skin">
-
 <!-- Main Navigation -->
 <header>
 
@@ -392,6 +395,56 @@
 
 
 
+<!-- Modal: Contact form -->
+<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog cascading-modal" role="document">
+  <!-- Content -->
+  <div class="modal-content">
+
+    <!-- Header -->
+    <div class="modal-header light-blue darken-3 white-text text-center">
+      <h4 class=""><i class="fas fa-pencil-alt"></i> Stock de Producto </h4>
+      <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- Body -->
+    <form id="formGuardarStock">
+      <div class="modal-body mb-0">
+        <input type="hidden" id="idProducto" value="0">
+        <input type="hidden" id="idEntrada" value="0">
+        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+  
+        <div class="md-form form-sm">
+          <input type="text" id="nombreProducto" class="form-control form-control-sm" disabled>
+          <label for="nombreProducto">Producto</label>
+        </div>
+  
+        <div class="md-form form-sm">
+          <input type="number" id="cantidadGral" class="form-control form-control-sm" 
+                value="" min="0" max="99999" step="1" />
+          <label for="cantidadGral">Cantidad en </label>
+        </div>
+  
+        <div class="md-form form-sm">
+          <input type="text" id="cantidadUnd" class="form-control form-control-sm"
+                value="" min="0" max="99999" step="1"/>
+          <label for="cantidadUnd">Cantidad en Unidades</label>
+        </div>
+  
+        <div class="text-center mt-1-half">
+          <button type="submit" class="btn btn-info mb-2" id="btnGuardarStock">Guardar <i class="fas fa-paper-plane ml-1"></i></button>
+        </div>
+  
+      </div>
+    </form>
+  </div>
+  <!-- Content -->
+</div>
+</div>
+<!-- Modal: Contact form -->
+
   <!-- SCRIPTS -->
   <!-- JQuery -->
   <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
@@ -402,6 +455,7 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
   <!-- Custom scripts -->
+  <script type="text/javascript" src="{% static 'js/producto.js' %}"></script>
   <script>
     $(".button-collapse").sideNav();
     
