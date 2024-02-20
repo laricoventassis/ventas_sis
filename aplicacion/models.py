@@ -7,6 +7,11 @@ AGRUPACION = (
   ('Und', 'Und'),
 )
 
+TURNO = (
+  ('Turno Dia', 'Turno Dia'),
+  ('Turno Noche', 'Turno Noche'),
+)
+
 class Producto(models.Model):
   cProducto = models.CharField('Producto', max_length=120, default='')
   cAgrupacion = models.CharField('Agrupación', choices=AGRUPACION, default="Unidad", max_length=120)
@@ -31,7 +36,7 @@ class StockAlmacen(models.Model):
       nEntero = int(self.nCantidad/self.producto.nConversion)
       nUnidad = self.nCantidad - nEntero*self.producto.nConversion
 
-      cUnidad = '' if nUnidad > 0 else ' y '+str(nUnidad)+' Und'
+      cUnidad = ' y '+str(nUnidad)+' Und' if nUnidad > 0 else ''
       cCantidad = ''+str(nEntero)+' '+self.producto.cAgrupacion+cUnidad
       
     self.cCantidad = cCantidad
@@ -44,15 +49,9 @@ class Entrada(models.Model):
     dFecha = models.DateTimeField('Fecha', blank=True, null=True)
     usuario = models.ForeignKey(Usuario, related_name='Usuario_Entrada', on_delete=models.CASCADE, blank=True, null=True)
 
-class Venta(models.Model):    
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, blank=True, null=True)
-    nCantidad = models.IntegerField('Cantidad', default=0)
-    nPrecio = models.DecimalField('Precio', max_digits=6, decimal_places=2, default=0)
-    dFecha = models.DateTimeField('Fecha', blank=True, null=True)
-    usuario = models.ForeignKey(Usuario, related_name='Usuario_Venta', on_delete=models.CASCADE, blank=True, null=True)
-
 class Caja(models.Model):    
   usuario = models.ForeignKey(Usuario, related_name='Usuario_Caja', on_delete=models.CASCADE, blank=True, null=True)
+  cTurno = models.CharField('Turno', choices=TURNO, default="Turno Dia", max_length=120)
   nMontoApertura = models.DecimalField('Monto Apertura', max_digits=6, decimal_places=2, default=0)
   dFechaApertura = models.DateTimeField('Fecha Apertura', blank=True, null=True)
   cComentarioApertura = models.CharField('Comentario Apertura', max_length=120, default='')
@@ -60,5 +59,17 @@ class Caja(models.Model):
   dFechaCierre = models.DateTimeField('Fecha Cierre', blank=True, null=True)
   cComentarioCierre = models.CharField('Comentario Cierre', max_length=120, default='')
 
+class Venta(models.Model):    
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, blank=True, null=True)
+    caja = models.ForeignKey(Caja, on_delete=models.CASCADE, blank=True, null=True)
+    nCantidad = models.IntegerField('Cantidad', default=0)
+    nPrecio = models.DecimalField('Precio', max_digits=6, decimal_places=2, default=0)
+    dFecha = models.DateTimeField('Fecha', blank=True, null=True)
+    usuario = models.ForeignKey(Usuario, related_name='Usuario_Venta', on_delete=models.CASCADE, blank=True, null=True)
+    nSubTotal = models.DecimalField('Sub Total', max_digits=6, decimal_places=2, default=0)
+  
+    def save(self, *args, **kwargs):
+      self.nSubTotal = self.nCantidad*self.nPrecio
+      super(Venta, self).save(*args, **kwargs)
   # def __str__(self):
   #   return self.usuario

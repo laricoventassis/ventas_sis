@@ -1,3 +1,17 @@
 .label-login {
     float: left;
 }
+
+.md-form .form-control:disabled, .md-form .form-control[readonly] {
+    border-bottom: 1px solid #bdbdbd;
+    background-color: #EEEEEE !important;
+}
+
+.btn-mini{
+    padding: 8px 12px !important;
+}
+
+.producto{
+    color: #417893;
+    font-weight: bold;
+}

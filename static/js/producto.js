@@ -1,17 +1,23 @@
 $(function () {
     $('.producto').click(function () {
-        //.addClass('active')
+        openModalStock($(this).parent());
+    });
+
+    $('.agregar').click(function () {
+        openModalStock($(this).parent().parent().parent());
+    });
+
+    function openModalStock(element) {
         $('#idProducto').val(0);
         $('#idEntrada').val(0);
-        $('#idProducto').val($(this).data('id'));
-        $('#nombreProducto').val($(this).data('nombre')).next().addClass('active');
-        $('#cantidadGral').val('').next().removeClass('active').html('Cantidad en ' + $(this).data('und') + '<b>(' + $(this).data('conversion') + ')</b>');
+        $('#idProducto').val(element.data('id'));
+        $('#nombreProducto').val(element.data('nombre')).next().addClass('active');
+        $('#cantidadGral').val('').next().removeClass('active').html('Cantidad en ' + element.data('und') + '<b>(' + element.data('conversion') + ')</b>');
         $('#cantidadUnd').val('').next().removeClass('active');
 
-        $(this).data('conversion') == '1' ? $('#cantidadGral').parent().hide() : $('#cantidadGral').parent().show();
-
+        element.data('conversion') == '1' ? $('#cantidadGral').parent().hide() : $('#cantidadGral').parent().show();
         $("#modalContactForm").modal("show");
-    });
+    };
 
     $('#formGuardarStock').submit(function (e) {
         e.preventDefault();
@@ -24,27 +30,43 @@ $(function () {
             idEntrada: $('#idEntrada').val(),
             idProducto: $('#idProducto').val(),
             nCantidad: $('#cantidadGral').val() == '' ? 0 : $('#cantidadGral').val(),
-            nUnidad: $('#cantidadUnd').val() == '' ? 0 : $('#cantidadUnd').val(),
-            CSRF: $('#cantidadUnd').val(),
+            nUnidad: $('#cantidadUnd').val() == '' ? 0 : $('#cantidadUnd').val()
         };
-
         $.ajax({
-            url: base_url + '/guardarstock/',
+            url: base_url + '/guardar_stock/',
             type: "POST",
             data: data,
-            dataType: 'json',
-            contentType: "application/json",
+            headers: {
+                "X-CSRFToken": $("[name=csrfmiddlewaretoken]").val()
+            },
+            dataType: 'Json',
+            // contentType: "application/json",
             success: function (res) {
+                if (res.estado == 'success') {
+                    toastr.success(res.msg);
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+
+                }
+                else {
+                    toastr.error(res.msg);
+                }
                 console.log(res);
-                toastr.success('Se ha registrado exitosamente.');
             },
             error: function (res) {
-                console.log(res);
-                console.log('ocurrio errro');
                 toastr.error('ocurrió un error, intente de nuevo.');
             }
         });
     });
 
+    // Historico de entradas
+    $('#dFechaStock').pickadate({
+        format: 'dd-mm-yyyy',
+    });
 
+    $('#dFechaStock').change(function () {
+        window.location.href = base_url + '/almacen/' + $('#dFechaStock').val() + '/';
+        console.log($('#dFechaStock').val());
+    });
 });

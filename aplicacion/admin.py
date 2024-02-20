@@ -23,13 +23,13 @@ class EntradaAdmin(admin.ModelAdmin):
         return self.producto
     
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ('producto', 'nCantidad', 'nPrecio', 'dFecha', 'usuario')
+    list_display = ('producto', 'nCantidad', 'nPrecio', 'nSubTotal', 'dFecha', 'usuario')
 
     def __str__(self):
         return self.producto
     
 class CajaAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'nMontoApertura', 'dFechaApertura', 'cComentarioApertura', 'nMontoCierre', 'dFechaCierre', 'cComentarioCierre')
+    list_display = ('usuario', 'cTurno', 'nMontoApertura', 'dFechaApertura', 'cComentarioApertura', 'nMontoCierre', 'dFechaCierre', 'cComentarioCierre')
 
     def __str__(self):
         return self.usuario

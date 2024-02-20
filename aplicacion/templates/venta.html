@@ -1,5 +1,210 @@
 {% extends 'header_body.html' %}
 
 {% block pagecontent %}
-desde venta
+<div class="row">
+    
+    <div class="col-md-4 mb-4">
+        <div class="card card-cascade narrower z-depth-1">
+            <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+              <div>
+                <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2">
+                  <i class="fas fa-cart-plus mt-0"></i></button>
+              </div>
+            <a href="" class="white-text mx-3">Venta de Producto</a>
+          
+              <div>
+              </div>
+          
+            </div>
+            <!-- /Card image -->
+            <form id="formVenta" class="px-4">
+                <div class="row">
+                    <div class="col-10">
+                        <div class="md-form">
+                            <i class="fas fa-cart-plus prefix grey-text"></i>
+                            <input type="text" class="form-control" list="lista-productos" id="productoVenta" value="">
+                              <datalist id="lista-productos">
+                                  {% for producto in productos%}
+                                  <option id="{{producto.id}}" value="{{producto.cProducto}}">{{producto.cProducto}}</option>
+                                  {%endfor%}
+                              </datalist>
+                            <label for="productoVenta">Producto</label>
+                          </div>
+                    </div>
+                    <div class="col-2">
+                        <a
+                            class="btn btn-secondary btn-sm btn-mini waves-effect waves-light md-form">
+                            <i class="fas fa-xmark"></i>
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-4">
+                        <div class="md-form">
+                            <i class="fas fa-arrow-up-9-1 prefix grey-text"></i>
+                            <input type="number" id="cantidadVenta" class="form-control"
+                              min="1" max="99999" value="" step="1">
+                            <label for="cantidadVenta">Cantidad</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="md-form">
+                            <i class="fas fa-magnifying-glass-dollar prefix grey-text"></i>
+                            <input type="number" id="precioVenta" class="form-control" min="0" max="99999" value="0" step="0.01" disabled>
+                            <label for="precioVenta">Precio</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="md-form">
+                            <i class="fas fa-magnifying-glass-dollar prefix grey-text"></i>
+                            <input type="number" value="0" id="totalVenta" class="form-control" disabled>
+                            <label for="totalVenta">Total</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="md-form">
+                            <i class="fas fa-hand-holding-dollar prefix grey-text"></i>
+                            <input type="number" id="pagoVenta" class="form-control" min="0" max="99999" 
+                            step="0.01" pattern="^\d+(?:\.\d{1,2})?$">
+                            <label for="pagoVenta">Pago con</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="md-form">
+                            <i class="fas fa-hand-holding-dollar prefix grey-text"></i>
+                            <input type="number" id="vueltoVenta" value="0" class="form-control" disabled>
+                            <label for="vueltoVenta">Vuelto</label>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="text-center mt-4 mb-4">
+                    <button class="btn aqua-gradient btn-rounded " id="btnGuardarVenta">Guardar</button>
+                </div>
+            </form>
+          
+          </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card card-cascade narrower z-depth-1">
+            <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+              <div>
+                <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2">
+                  <i class="fas fa-rectangle-list mt-0"></i></button>
+              </div>
+                <a href="" class="white-text mx-3">
+                    <p>
+                        <span style="font-size: 14px !important;" 
+                            class="badge badge-danger pull-right">{{ventas.count}} ventas</span> - 
+                        <span style="font-size: 14px !important;" 
+                            class="badge badge-danger pull-right"> s/ {{total|floatformat:2}}</span>
+                    </p>
+                </a>
+              
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table">
+                  <tbody>
+                    
+                    {% for venta in ventas %}
+                      <tr>
+                        <th scope="row">{{venta.producto.cProducto}}</th>
+                        <td>{{venta.nPrecio|floatformat:2}}</td>
+                        <td>{{venta.nCantidad}}</td>
+                        <td>{{venta.nSubTotal|floatformat:2}}</td>
+                        <td class="venta">
+                            <i class="fas fa-trash-can btn-sm btn-mini btn-danger btn eliminar" 
+                                data-id="{{venta.id}}" data-tipo="venta">
+                            </i>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-cascade narrower z-depth-1">
+            <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+              <div>
+                <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2">
+                  <i class="fas fa-dollar-sign mt-0"></i></button>
+              </div>
+          
+              {% if iniciado == 1 %}
+                <a href="" class="white-text mx-3">CIERRE DE CAJA</a>
+              {% else %}
+                <a href="" class="white-text mx-3">INICIO DE CAJA</a>
+              {% endif %}
+          
+              <div>
+              </div>
+          
+            </div>
+            <!-- /Card image -->
+            <form id="formCaja" class="px-4">
+                <div class="md-form pb-4">
+                    <div class="switch pb-4">
+                        {% if iniciado == 1 %}
+                            {% if caja.cTurno == 'Turno Noche'%}
+                            <label>
+                                Turno Día
+                                <input type="checkbox" checked="checked" id="trunoCaja" disabled>
+                                <span class="lever"></span> Turno Noche
+                            </label>
+                            {% else %}
+                            <label>
+                                Turno Día
+                                <input type="checkbox" disabled>
+                                <span class="lever"></span> Turno Noche
+                            </label>
+                            {% endif %}
+                        {% else %}
+                        <label>
+                            Turno Día
+                            <input type="checkbox">
+                            <span class="lever"></span> Turno Noche
+                        </label>
+                        {% endif %}
+                        
+                    </div>                  
+                </div>
+                
+                
+                <div class="md-form">
+                    <i class="fas fa-hand-holding-dollar prefix grey-text"></i>
+                    <input type="number" id="montoCaja" class="form-control"
+                    min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$">
+                    <label for="montoCaja">Monto</label>
+                </div>
+            
+                <div class="md-form">
+                    <i class="fas fa-comment prefix grey-text"></i>
+                    <textarea type="text" id="comentarioCaja" class="md-textarea form-control" rows="1"></textarea>
+                    <label for="comentarioCaja">Comentario</label>
+                </div>
+                {% if iniciado == 1 %}
+                <div class="px-4">
+                    <label>Inicio: s/ {{caja.nMontoApertura}} - {{caja.cComentarioApertura}}</label>
+                </div>
+                {% endif %}
+                <div class="text-center mt-4 mb-4">
+                    {% if iniciado == 1 %}
+                    <button class="btn aqua-gradient btn-rounded " type="submit">Cerrar</button>
+                    {% else %}
+                    <button class="btn aqua-gradient btn-rounded ">Iniciar</button>
+                    {% endif %}
+                </div>
+            </form>
+          </div>
+    </div>
+</div>
 {% endblock pagecontent %}

@@ -1,0 +1,96 @@
+{% extends 'header_body.html' %}
+
+{% block pagecontent %}
+
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <div class="card card-cascade narrower z-depth-1">
+      <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+        <div>
+          <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2"><i class="fas fa-th-large mt-0"></i></button>
+        </div>
+        <a href="" class="white-text mx-3">Cajas</a>
+        <div>
+            <input placeholder="Fecha" value="{{fecha}}" type="text" id="dFechaCaja" class="form-control datepicker">
+        </div>
+      </div>
+      
+      <div class="">
+        <div class="table-responsive card mb-4">
+          <table class="table">
+            <thead style="background: #DDDBE8; color: black; opacity: 0.5;">
+              <tr>
+                <th scope="col">INICIO</th>
+                <th scope="col">MONTO</th>
+                <th scope="col">CIERRE</th>
+                <th scope="col">MONTO</th>
+                <th scope="col">VER</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              {% for caja in cajas %}
+                <tr>
+                  <th scope="row">{{caja.dFechaApertura|date:"h:i a" }}</th>
+                  <td>{{caja.nMontoApertura}}</td>
+                  <td>{{caja.dFechaCierre|date:"h:i a"}}</td>
+                  <td>{{caja.nMontoCierre}}</td>
+                  <td>
+                    <div class="btn-group me-2" role="group" aria-label="First group">
+                      <button type="button" class="btn btn-success btn-sm btn-mini vercaja"  data-mdb-ripple-init
+                        data-id="{{caja.id}}"
+                      >
+                        <i class="fas fa-circle-info"></i>
+                      </button>
+                    </div>
+                </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card card-cascade narrower z-depth-1">
+      <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+        <div>
+          <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2"><i class="fas fa-th-large mt-0"></i></button>
+        </div>
+        <a href="" class="white-text mx-3">
+          <p>
+            <span style="font-size: 14px !important;" 
+                class="badge badge-danger pull-right num_ventas">0 ventas</span> - 
+            <span style="font-size: 14px !important;" 
+                class="badge badge-danger pull-right sum_ventas"> s/ 0</span>
+          </p>
+        </a>
+        <div></div>
+      </div>
+      
+      <div class="">
+        
+
+        <div class="table-responsive card">
+          <table class="table">
+            <thead style="background: #DDDBE8; color: black; opacity: 0.5;">
+              <tr>
+                <th scope="col">PRODUCTO</th>
+                <th scope="col">CANTIDAD</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">SUB TOTAL</th>
+              </tr>
+            </thead>
+            <tbody id="tBodyVentas">
+                
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock pagecontent %}
