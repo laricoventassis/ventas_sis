@@ -3,14 +3,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import (LoginView, LogoutView,PasswordChangeView, PasswordResetDoneView)
-from aplicacion.views import inicio, venta, almacen, perfil, guardar_stock, guardar_caja, guardar_venta, eliminar, rptventas, listaventas
+from aplicacion.views import producto, venta, almacen, perfil, guardar_stock, guardar_caja, guardar_venta, eliminar, rptventas, listaventas
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='login.html'), name='logout'),
-    # path('', inicio, name='inicio'),
-    # path('venta/', venta, name='venta'),
     path('', venta, name='venta'),
     path('almacen/', almacen, name='almacen'),
     path('almacen/<str:fecha>/', almacen, name='almacen'),
@@ -22,6 +20,7 @@ urlpatterns = [
     path('rptventas/', rptventas, name='rptventas'),
     path('rptventas/<str:fecha>/', rptventas, name='rptventas'),
     path('listaventas/', listaventas, name='listaventas'),
+    path('producto/', producto, name='producto'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

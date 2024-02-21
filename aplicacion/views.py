@@ -6,10 +6,27 @@ from usuario.models import Usuario
 from aplicacion.models import Producto, StockAlmacen, Entrada, Caja, Venta
 
 @login_required
-def inicio(request):
-  user = Usuario.objects.get(username=request.user.username)
-  context = {'usuario':user, 'menu_inicio':"active"}
-  return render(request, 'inicio.html', context)
+def producto(request):
+  if request.method=="POST":
+    nombre = request.POST.get('producto', '')
+    try:
+      caja = Caja.objects.get(nMontoCierre=0)
+    except Caja.DoesNotExist:
+      return JsonResponse({'estado':'error', 'msg':"Caja no encontrado."})
+
+    try:
+      producto = Producto.objects.get(cProducto=nombre)
+      pruducto_ = [
+        {
+          'producto':producto.cProducto, 
+          'precio': producto.nPrecioDia if caja.cTurno=='Turno Dia' else producto.nPrecioNoche,
+          'stock': producto.stockalmacen_set.first().nCantidad if producto.stockalmacen_set.count() > 0 else 0
+        }]
+      return JsonResponse({'estado':'success', 'msg':"", 'producto':pruducto_})
+    except Producto.DoesNotExist:
+      return JsonResponse({'estado':'error', 'msg':"Producto no encontrado."})
+  else:
+    return JsonResponse({'estado':'error', 'msg':"Método no válido."})
 
 @login_required
 def venta(request):

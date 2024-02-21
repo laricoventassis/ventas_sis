@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-10">
                         <div class="md-form">
-                            <i class="fas fa-cart-plus prefix grey-text"></i>
+                            {% comment %} <i class="fas fa-cart-plus prefix grey-text"></i> {% endcomment %}
                             <input type="text" class="form-control" list="lista-productos" id="productoVenta" value="">
                               <datalist id="lista-productos">
                                   {% for producto in productos%}
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-2">
                         <a
-                            class="btn btn-secondary btn-sm btn-mini waves-effect waves-light md-form">
+                            class="btn btn-secondary btn-sm btn-mini waves-effect waves-light md-form btn-limpiar">
                             <i class="fas fa-xmark"></i>
                         </a>
                     </div>
@@ -42,22 +42,22 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="md-form">
-                            <i class="fas fa-arrow-up-9-1 prefix grey-text"></i>
+                            {% comment %} <i class="fas fa-arrow-up-9-1 prefix grey-text"></i> {% endcomment %}
                             <input type="number" id="cantidadVenta" class="form-control"
                               min="1" max="99999" value="" step="1">
-                            <label for="cantidadVenta">Cantidad</label>
+                            <label id="labelCantidad" for="cantidadVenta">Cantidad</label>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="md-form">
-                            <i class="fas fa-magnifying-glass-dollar prefix grey-text"></i>
+                            {% comment %} <i class="fas fa-magnifying-glass-dollar prefix grey-text"></i> {% endcomment %}
                             <input type="number" id="precioVenta" class="form-control" min="0" max="99999" value="0" step="0.01" disabled>
                             <label for="precioVenta">Precio</label>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="md-form">
-                            <i class="fas fa-magnifying-glass-dollar prefix grey-text"></i>
+                            {% comment %} <i class="fas fa-magnifying-glass-dollar prefix grey-text"></i> {% endcomment %}
                             <input type="number" value="0" id="totalVenta" class="form-control" disabled>
                             <label for="totalVenta">Total</label>
                         </div>
@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="md-form">
-                            <i class="fas fa-hand-holding-dollar prefix grey-text"></i>
+                            {% comment %} <i class="fas fa-hand-holding-dollar prefix grey-text"></i> {% endcomment %}
                             <input type="number" id="pagoVenta" class="form-control" min="0" max="99999" 
                             step="0.01" pattern="^\d+(?:\.\d{1,2})?$">
                             <label for="pagoVenta">Pago con</label>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="col-6">
                         <div class="md-form">
-                            <i class="fas fa-hand-holding-dollar prefix grey-text"></i>
+                            {% comment %} <i class="fas fa-hand-holding-dollar prefix grey-text"></i> {% endcomment %}
                             <input type="number" id="vueltoVenta" value="0" class="form-control" disabled>
                             <label for="vueltoVenta">Vuelto</label>
                         </div>
