@@ -31,6 +31,8 @@ def venta(request):
 
 @login_required
 def almacen(request, fecha=''):
+  if not request.user.is_superuser:
+    return JsonResponse({"estado":"error","msg":'No tiene privilegios de administrador para esta acción.'})
   fecha2=datetime.now()
   if fecha != '':
     fecha2 = datetime.strptime(fecha, "%d-%m-%Y").date()
@@ -153,6 +155,9 @@ def eliminar(request):
     tipoOpe = request.POST.get('idTipoOperacion', '')
     idOperacion = int(request.POST.get('idOperacion', 0))
 
+    if tipoOpe == 'stock' and not request.user.is_superuser:
+      return JsonResponse({"estado":"error","msg":'No tiene privilegios de administrador para esta acción.'})
+
     if tipoOpe == 'stock':
       try:
         operacion = Entrada.objects.get(id=idOperacion)
@@ -179,6 +184,8 @@ def eliminar(request):
 # Reporte de cajas y ventas
 @login_required
 def rptventas(request, fecha=''):
+  if not request.user.is_superuser:
+      return JsonResponse({"estado":"error","msg":'No tiene privilegios de administrador para esta acción.'})
   fecha2=datetime.now()
   if fecha != '':
     fecha2 = datetime.strptime(fecha, "%d-%m-%Y").date()
@@ -195,6 +202,8 @@ def rptventas(request, fecha=''):
 # Lista de Ventas por Caja
 @login_required
 def listaventas(request):
+  if not request.user.is_superuser:
+      return JsonResponse({"estado":"error","msg":'No tiene privilegios de administrador para esta acción.'})
   if request.method=="POST":
     idCaja = int(request.POST.get('idCaja', 0))
     try:

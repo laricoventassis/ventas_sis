@@ -131,7 +131,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 mb-4">
         <div class="card card-cascade narrower z-depth-1">
             <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
               <div>
@@ -163,14 +163,14 @@
                             {% else %}
                             <label>
                                 Turno Día
-                                <input type="checkbox" disabled>
+                                <input type="checkbox" id="trunoCaja" disabled>
                                 <span class="lever"></span> Turno Noche
                             </label>
                             {% endif %}
                         {% else %}
                         <label>
                             Turno Día
-                            <input type="checkbox">
+                            <input type="checkbox" id="trunoCaja">
                             <span class="lever"></span> Turno Noche
                         </label>
                         {% endif %}

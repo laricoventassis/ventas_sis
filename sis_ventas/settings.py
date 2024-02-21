@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sis_ventas.variables.prefijo_url',
             ],
         },
     },
@@ -96,12 +97,15 @@ DATABASES = {
     }
 }
 
+PREFIJO = 'https'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+# PREFIJO_URL = 'http'
 
 
 # Password validation
