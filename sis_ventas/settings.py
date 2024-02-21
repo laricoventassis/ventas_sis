@@ -97,7 +97,7 @@ DATABASES = {
     }
 }
 
-PREFIJO = 'https'
+PREFIJO_URL = 'https'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
