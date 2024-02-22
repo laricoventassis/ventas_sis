@@ -3,6 +3,7 @@ $(function () {
         onPick: function (input, item) {
             if ($(input).val() == '')
                 return;
+            console.log('enviando');
             $.ajax({
                 url: base_url + '/producto/',
                 type: "POST",
@@ -26,6 +27,7 @@ $(function () {
     });
 
     $('.btn-limpiar').click(function () {
+        console.log('limpiando');
         $('#productoVenta').val('').focus();
         $('#cantidadVenta').val('');
         $('#precioVenta').val('');
