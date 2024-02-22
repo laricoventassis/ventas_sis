@@ -56,11 +56,6 @@ def almacen(request, fecha=''):
   user = Usuario.objects.get(username=request.user.username)
   stocks = StockAlmacen.objects.all()
   productos = Producto.objects.filter(lVigente=True)
-  # entradas = Entrada.objects.filter(dFecha__year=fecha2.year, dFecha__month=fecha2.month, 
-                                    # dFecha__day=fecha2.day).order_by('-dFecha')
-
-  # context = {'usuario':user, 'stocks':stocks, 'productos':productos, 
-  #            'menu_almacen':"active", 'entradas':entradas, 'fecha':fecha}
   context = {'usuario':user, 'stocks':stocks,'productos':productos,}
   return render(request, 'almacen.html', context)
 
