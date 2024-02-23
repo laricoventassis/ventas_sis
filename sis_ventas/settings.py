@@ -89,11 +89,11 @@ WSGI_APPLICATION = 'sis_ventas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': 'byyneptvyiifcximzkme-postgresql.services.clever-cloud.com',
-        'PORT': 50013,
-        'NAME': 'byyneptvyiifcximzkme',
-        'USER': 'uaz1y14fb8bhb4en8uvr',
-        'PASSWORD': 'Jsk15SR9ZjxQlad2iu6Ch3D2EQTWW4',
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': 5432,
+        'NAME': os.getenv('POSTGRES_DATABASE'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
     }
 }
 
